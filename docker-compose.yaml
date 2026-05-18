@@ -19,10 +19,16 @@ services:
       timeout: 5s
       retries: 20
       start_period: 5s
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
 
   backend:
     build:
-      context: ./backend
+      context: ../datahub-backend
       dockerfile: dockerfile.backend
     container_name: datahub-backend
     ports:
@@ -43,7 +49,7 @@ services:
 
   migrate:
     build:
-      context: ./backend
+      context: ../datahub-backend
       dockerfile: dockerfile.backend
       target: migrate
     container_name: datahub-migrate
