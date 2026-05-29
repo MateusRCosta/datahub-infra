@@ -60,6 +60,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
 
 volumes:
   postgres-data:
