@@ -2,4 +2,6 @@
 /backend/**
 /backend
 /frontend
+/logs
+/logs/**
 .env
