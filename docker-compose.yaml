@@ -49,6 +49,29 @@ services:
           cpus: '1'
           memory: 500M
 
+  frontend:
+    build:
+      context: ../datahub-frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:8000}
+    container_name: datahub-frontend
+    ports:
+      - "3000:3000"
+    environment:
+          NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:8000}
+    restart: unless-stopped
+    networks:
+      - datahub
+    depends_on:
+       - backend
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+
   migrate:
     build:
       context: ../datahub-backend
